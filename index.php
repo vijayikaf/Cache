@@ -2,15 +2,15 @@
 include('lib/Settings.php');
 include('lib/CacheMemcache.php');
 
-$query = "SELECT * FROM demos";
+$query = "SELECT * FROM companies";
 $result = '';
 
 if(isset($_REQUEST['action'])){
     $action = $_REQUEST['action']; 
     if($action == 'delete' && isset($_REQUEST['id'])){
         $id = (int)$_REQUEST['id'];
-        $sql = 'DELETE FROM demos WHERE id = "'.$id.'" ';
-        mysql_query($sql);
+        $sql = 'DELETE FROM companies WHERE id = "'.$id.'" ';
+        mysqli_query($con, $sql);
         header('Location:index.php');
     }
     if($action == 'clearCache'){
@@ -26,11 +26,11 @@ if (IS_CACHE_ENABLED) {
     $cacheKey = md5($query);
     $result = $cache->getData($cacheKey);
     if (empty($result)) {
-        $result = getResult($query);
+        $result = getResult($con, $query);
         $cache->setData($cacheKey, $result);
     }
 } else {
-    $result = getResult($query);
+    $result = getResult($con, $query);
 }
 
 

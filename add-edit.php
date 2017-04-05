@@ -6,17 +6,17 @@ $description = '';
 if (isset($_POST['save'])) {
     extract($_POST);
     if (isset($_REQUEST['id'])) {
-        $sql = 'UPDATE demos SET title = "' . $title . '", link = "' . $link . '", description = "' . $description . '" WHERE id = "'.$_REQUEST['id'].'" ';
+        $sql = 'UPDATE companies SET title = "' . $title . '", link = "' . $link . '", description = "' . $description . '" WHERE id = "'.$_REQUEST['id'].'" ';
     } else {
-        $sql = 'INSERT INTO demos SET title = "' . $title . '", link = "' . $link . '", description = "' . $description . '" ';
+        $sql = 'INSERT INTO companies SET title = "' . $title . '", link = "' . $link . '", description = "' . $description . '" ';
     }
-    mysql_query($sql);
+    mysqli_query($con, $sql);
 
     header('Location:index.php');
 }
 if (isset($_REQUEST['id'])) {
-    $query = "SELECT * FROM demos WHERE id = '" . $_REQUEST['id'] . "' ";
-    $result = getResult($query);
+    $query = "SELECT * FROM companies WHERE id = '" . $_REQUEST['id'] . "' ";
+    $result = getResult($con, $query);
     $title = $result[0]['title'];
     $link = $result[0]['link'];
     $description = $result[0]['description'];

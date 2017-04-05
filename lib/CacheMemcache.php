@@ -18,6 +18,8 @@ class CacheMemcache {
             $this->cache = new Memcached();
             $this->cache->addServer($host, $port);
             $this->isEnabled = true;
+        }else{
+            die('Memcached not installed');
         }
     }
 
